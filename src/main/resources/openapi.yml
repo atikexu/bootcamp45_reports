@@ -1,0 +1,289 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI reports
+  version: v0
+servers:
+  - url: http://localhost:8087/
+    description: Generated server url
+paths:
+  /consult/person/{customerId}:
+    get:
+      tags:
+        - consult-controller
+      operationId: productXCustomerIdPerson
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Products'
+  /consult/movementcreditcard/{id}:
+    get:
+      tags:
+        - consult-controller
+      operationId: movementXCreditCardId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movements'
+  /consult/movementcredit/{id}:
+    get:
+      tags:
+        - consult-controller
+      operationId: movementXCreditId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movements'
+  /consult/movementaccount/{id}:
+    get:
+      tags:
+        - consult-controller
+      operationId: movementXAccountId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movements'
+  /consult/company/{customerId}:
+    get:
+      tags:
+        - consult-controller
+      operationId: productXCustomerIdCompany
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Products'
+  /consult/commissionaccount/{id}:
+    get:
+      tags:
+        - consult-controller
+      operationId: commissionXAccountId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movements'
+  /consult/average/{id}:
+    get:
+      tags:
+        - consult-controller
+      operationId: averageBalancesXCustomerIdPerson
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: number
+                  format: double
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        typeAccount:
+          type: integer
+          format: int32
+        descripTypeAccount:
+          type: string
+        amount:
+          type: number
+          format: double
+        maintenance:
+          type: number
+          format: double
+        transaction:
+          type: integer
+          format: int32
+        operationDay:
+          type: integer
+          format: int32
+        dateAccount:
+          type: string
+          format: date-time
+        typeCustomer:
+          type: string
+        numberAccount:
+          type: string
+    Credit:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        typeAccount:
+          type: integer
+          format: int32
+        descripTypeAccount:
+          type: string
+        creditAmount:
+          type: number
+          format: double
+        existingAmount:
+          type: number
+          format: double
+        creditDate:
+          type: string
+          format: date-time
+        typeCustomer:
+          type: string
+        amount:
+          type: number
+          format: double
+    CreditCard:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        typeAccount:
+          type: integer
+          format: int32
+        descripTypeAccount:
+          type: string
+        creditAmount:
+          type: number
+          format: double
+        existingAmount:
+          type: number
+          format: double
+        creditDate:
+          type: string
+          format: date-time
+        numberCard:
+          type: string
+        typeCustomer:
+          type: string
+        amount:
+          type: number
+          format: double
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        document:
+          type: string
+        nameCustomer:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+        typeCustomer:
+          type: string
+    Products:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        account:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        credit:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credit'
+        creditCard:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditCard'
+    Movements:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        transaction:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+        productType:
+          type: string
+        productId:
+          type: string
+        customerId:
+          type: string
+        transactionType:
+          type: string
+        amount:
+          type: number
+          format: double
+        transactionDate:
+          type: string
+          format: date-time
+        customerType:
+          type: string
+        balance:
+          type: number
+          format: double
